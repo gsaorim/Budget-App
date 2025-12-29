@@ -1,0 +1,160 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block main %}
+    <div class="transaction-card mx-auto">
+        <form action="/dashboard" method="post">
+            <label class="form-label-pastel">Date</label>
+            <div class="mb-3-2">
+                <div class="d-flex justify-content-center gap-2">
+                    <label for="year">Year</label>
+                    <input autocomplete="off" class="form-control w-auto" name="year" placeholder="Year" type="number">
+
+                    <label for="month">Month</label>
+                    <select id="month" name="month">
+                        <option value="all">All</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+
+                    <label for="day">Day</label>
+                    <select id="day" name="day">
+                        <option value="all">ALL</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="type">Category</label>
+                <select id="type" name="category">
+                    <option value="all">All</option>
+                    <option value="rent">Rent</option>
+                    <option value="food">Food</option>
+                    <option value="transport">Transport</option>
+                    <option value="light">Light</option>
+                    <option value="water">Water</option>
+                    <option value="wifi">WiFi</option>
+                    <option value="health insurance">Health Insurance</option>
+                    <option value="fun">Fun</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" value="submit">Save</button>
+        </form>
+
+        <div>
+        <!-- TRANSACTIONS TABLE-->
+            <h2 class="dashboard-title">All the Transactions</h2>
+            <table class="table-purple">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Month</th>
+                        <th>Day</th>
+                        <th>Category</th>
+                        <th>Note</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dashboard in dashboards %}
+                        <tr>
+                            <td>{{ dashboard.year }}</td>
+                            <td>{{ dashboard.month }}</td>
+                            <td>{{ dashboard.day }}</td>
+                            <td>{{ dashboard.category }}</td>
+                            <td>{{ dashboard.note }}</td>
+                            <td>{{ dashboard.amount}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h2 class="dashboard-title">Spendings</h2>
+            <table class="table-purple">
+                <thead>
+                    <tr>
+                        <th>Total spent</th>
+                        <th>Savings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ total_expenses | usd }}</td>
+                        <td class="{{ savings_class }}">
+                            {{ savings | usd }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+            <!-- SALARY TABLE -->
+            <h2 class="dashboard-title-1">Salary</h2>
+            <table class="table-blue">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Month</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dashboard in dashboards %}
+                        <tr>
+                            <td>{{ dashboard.year }}</td>
+                            <td>{{ dashboard.month }}</td>
+                            <td>{{ salary | usd }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
